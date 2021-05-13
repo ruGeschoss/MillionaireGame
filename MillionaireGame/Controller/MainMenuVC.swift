@@ -7,32 +7,34 @@
 
 import UIKit
 
+enum NavigationPaths {
+  case results, newGame
+}
+
 class MainMenuVC: UIViewController {
   
-  @IBOutlet weak var resultsButton: UIButton!
-  @IBOutlet weak var startButton: UIButton!
+  @IBOutlet var mainMenu: MainMenuView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    // Do any additional setup after loading the view.
-  }
-  @IBAction func tappedResultsButton(_ sender: UIButton) {
+    mainMenu.delegate = self
   }
   
-  @IBAction func tappedStartButton(_ sender: UIButton) {
-    let gameVC = storyboard!.instantiateViewController(identifier: "GameVC")
-    navigationController?.pushViewController(gameVC, animated: true)
-  }
+}
+
+extension MainMenuVC: MainMenuDelegate {
   
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   // Get the new view controller using segue.destination.
-   // Pass the selected object to the new view controller.
-   }
-   */
+  func navigate(_ path: NavigationPaths) {
+    switch path {
+    case .newGame:
+      guard let storyboard = storyboard else { return }
+      
+      let gameVC = storyboard
+        .instantiateViewController(identifier: "GameVC")
+      navigationController?.pushViewController(gameVC, animated: true)
+    case .results:
+      print("Not yet")
+    }
+  }
   
 }
