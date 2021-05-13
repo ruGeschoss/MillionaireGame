@@ -25,13 +25,35 @@ final class GameSession {
     totalQuestions = .zero
   }
   
-  func correctAnswer() {
-    totalQuestions += 1
-    correctAnswers += 1
-    // set currentReward based on enum
-  }
-  
-  func wrongAnswer() {
-    totalQuestions += 1
-  }
 }
+
+// MARK: - Answers
+// extension GameSession {
+//
+//  func correctAnswer() {
+//    totalQuestions += 1
+//    correctAnswers += 1
+//    // set currentReward based on enum
+//  }
+//
+//  func wrongAnswer() {
+//    totalQuestions += 1
+//  }
+//
+// }
+
+// MARK: - Prompts
+// extension GameSession {
+//
+//  func useFiftyPrompt() {
+//    isFiftyPromptEnabled = false
+//  }
+//
+//  func useCallFriendPrompt() {
+//    isCallFriendPromptEnabled = false
+//  }
+//
+//  func useHallHelpPrompt() {
+//    isHallHelpPromptEnabled = false
+//  }
+// }

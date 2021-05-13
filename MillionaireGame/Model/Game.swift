@@ -15,3 +15,22 @@ final class Game {
   
   private init() {}
 }
+
+// extension Game {
+//  
+//  enum Prompt {
+//    case fifty, callFriend, hallHelp
+//  }
+//  
+//  func usePrompt(_ prompt: Prompt) {
+//    switch prompt {
+//    case .fifty:
+//      currentGame?.useFiftyPrompt()
+//    case .callFriend:
+//      currentGame?.useCallFriendPrompt()
+//    case .hallHelp:
+//      currentGame?.useHallHelpPrompt()
+//    }
+//  }
+//  
+// }
