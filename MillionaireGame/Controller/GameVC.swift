@@ -19,16 +19,37 @@ class GameVC: UIViewController {
   @IBOutlet weak var questionView: GameQuestionView!
   @IBOutlet weak var answersView: GameAnswersView!
   
+  private var question = "Are ya winnin SON?"
   private var answers = ["Ответ А", "Ответ B", "Ответ C", "Ответ D"]
+  private var correctAnswer = "Ответ А"
+  private var currentRound = 0
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     promptView.delegate = self
     questionView.delegate = self
-    
     answersView.delegate = self
+    
+    questionView.reload()
     answersView.reload()
+  }
+  
+  private func checkUserAnswer(_ userAnswer: Int) {
+    let answer = answers[userAnswer]
+    answer == correctAnswer ? startNextRound() : finishGame()
+  }
+  
+  private func startNextRound() {
+    print(#function)
+    currentRound += 1
+    questionView.reload()
+    answersView.reload()
+  }
+  
+  private func finishGame() {
+    print(#function)
+    navigationController?.popViewController(animated: true)
   }
   
 }
@@ -49,7 +70,7 @@ extension GameVC: GamePromptDelegate {
 extension GameVC: GameQuestionDelegate {
   
   func qustionForCurrentRound() -> String {
-    "Are ya winnin SON?"
+    question + String(currentRound)
   }
 }
 
@@ -60,5 +81,6 @@ extension GameVC: GameAnswersDelegate {
   
   func didSelectAnswer(at index: Int) {
     print(answers[index])
+    checkUserAnswer(index)
   }
 }

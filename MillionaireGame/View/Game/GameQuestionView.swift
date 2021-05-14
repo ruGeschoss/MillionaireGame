@@ -26,8 +26,7 @@ final class GameQuestionView: UIView {
     initQuestionLabel()
   }
   
-  override func layoutSubviews() {
-    super.layoutSubviews()
+  func reload() {
     question.text = delegate?.qustionForCurrentRound()
   }
   
