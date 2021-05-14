@@ -7,11 +7,22 @@
 
 import UIKit
 
+enum GamePrompt: CaseIterable {
+  case fifty, call, hall
+}
+
+protocol GamePromptDelegate: AnyObject {
+  func didSelectPrompt(_ prompt: GamePrompt)
+}
+
 final class GamePromptView: UIView {
   
   private let fiftyPrompt = UIButton()
   private let callFriendPrompt = UIButton()
   private let askHallPrompt = UIButton()
+  private var allButtons = [UIButton]()
+  
+  weak var delegate: GamePromptDelegate?
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -23,52 +34,62 @@ final class GamePromptView: UIView {
     initPromptView()
   }
   
+  @objc func didSelectPrompt(_ sender: UIButton) {
+    guard let index = allButtons.firstIndex(of: sender) else { return }
+    let prompt = GamePrompt.allCases[index]
+    delegate?.didSelectPrompt(prompt)
+    sender.isHidden = true
+  }
+}
+
+// MARK: - Initialisation
+extension GamePromptView {
+  
   private func initPromptView() {
     initFiftyPrompt()
     initCallFriendPrompt()
     initAskHallPrompt()
   }
   
+  private func commonButtonInit(button: UIButton) {
+    addSubview(button)
+    button.translatesAutoresizingMaskIntoConstraints = false
+    button.addTarget(self, action: #selector(didSelectPrompt(_:)), for: .touchUpInside)
+    button.titleLabel?.text = ""
+    allButtons.append(button)
+    
+    NSLayoutConstraint.activate([
+      button.topAnchor.constraint(equalTo: self.topAnchor),
+      button.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+      button.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/3)
+    ])
+  }
+  
   private func initFiftyPrompt() {
-    addSubview(fiftyPrompt)
-    fiftyPrompt.translatesAutoresizingMaskIntoConstraints = false
-    fiftyPrompt.titleLabel?.text = ""
+    commonButtonInit(button: fiftyPrompt)
     fiftyPrompt.setImage(UIImage(systemName: "heart.fill"), for: .normal)
     
     NSLayoutConstraint.activate([
-      fiftyPrompt.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-      fiftyPrompt.topAnchor.constraint(equalTo: self.topAnchor),
-      fiftyPrompt.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-      fiftyPrompt.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/3)
+      fiftyPrompt.leadingAnchor.constraint(equalTo: self.leadingAnchor)
     ])
   }
   
   private func initCallFriendPrompt() {
-    addSubview(callFriendPrompt)
-    callFriendPrompt.translatesAutoresizingMaskIntoConstraints = false
-    callFriendPrompt.titleLabel?.text = ""
+    commonButtonInit(button: callFriendPrompt)
     callFriendPrompt.setImage(UIImage(systemName: "square.fill"), for: .normal)
     
     NSLayoutConstraint.activate([
-      callFriendPrompt.leadingAnchor.constraint(equalTo: fiftyPrompt.trailingAnchor),
-      callFriendPrompt.topAnchor.constraint(equalTo: self.topAnchor),
-      callFriendPrompt.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-      callFriendPrompt.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/3)
+      callFriendPrompt.leadingAnchor.constraint(equalTo: fiftyPrompt.trailingAnchor)
     ])
   }
   
   private func initAskHallPrompt() {
-    addSubview(askHallPrompt)
-    askHallPrompt.translatesAutoresizingMaskIntoConstraints = false
-    askHallPrompt.titleLabel?.text = ""
+    commonButtonInit(button: askHallPrompt)
     askHallPrompt.setImage(UIImage(systemName: "circle.fill"), for: .normal)
-    
+
     NSLayoutConstraint.activate([
       askHallPrompt.leadingAnchor.constraint(equalTo: callFriendPrompt.trailingAnchor),
-      askHallPrompt.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-      askHallPrompt.topAnchor.constraint(equalTo: self.topAnchor),
-      askHallPrompt.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-      askHallPrompt.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/3)
+      askHallPrompt.trailingAnchor.constraint(equalTo: self.trailingAnchor)
     ])
   }
 }

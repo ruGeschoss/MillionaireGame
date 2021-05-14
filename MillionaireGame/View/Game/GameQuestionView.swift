@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol GameQuestionDelegate: AnyObject {
+  func qustionForCurrentRound() -> String
+}
+
 final class GameQuestionView: UIView {
   
   private let question = UILabel()
+  weak var delegate: GameQuestionDelegate?
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -19,6 +24,11 @@ final class GameQuestionView: UIView {
   required init?(coder: NSCoder) {
     super.init(coder: coder)
     initQuestionLabel()
+  }
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    question.text = delegate?.qustionForCurrentRound()
   }
   
   private func initQuestionLabel() {
