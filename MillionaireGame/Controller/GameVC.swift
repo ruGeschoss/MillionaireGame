@@ -25,12 +25,14 @@ class GameVC: UIViewController {
   @IBOutlet weak var questionView: GameQuestionView!
   @IBOutlet weak var answersView: GameAnswersView!
   
-  weak var delegate: CurrentGameSession?
+  weak var session: CurrentGameSession?
   private let dataSource = Game.shared
   var onGameEnd: ((Int) -> Void)?
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    dataSource.currentGame = .init(dateStarted: Date())
+    session = dataSource.currentGame
     
     promptView.delegate = self
     questionView.delegate = self
@@ -55,7 +57,7 @@ class GameVC: UIViewController {
 extension GameVC: GamePromptDelegate {
   
   func didSelectPrompt(_ prompt: GamePrompt) {
-    guard let currentRound = delegate?
+    guard let currentRound = session?
             .getNumberOfCurrentRound() else { return }
     let indicies = dataSource
       .usePrompt(prompt: prompt, forRound: currentRound)
@@ -68,7 +70,7 @@ extension GameVC: GamePromptDelegate {
     case .hall:
       answersView.showPercentOnButtons(percents: indicies)
     }
-    delegate?.promptUsed(prompt: prompt)
+    session?.promptUsed(prompt: prompt)
   }
 }
 
@@ -76,7 +78,7 @@ extension GameVC: GameQuestionDelegate {
   
   func qustionForCurrentRound() -> String? {
     guard
-      let currentRound = delegate?.getNumberOfCurrentRound(),
+      let currentRound = session?.getNumberOfCurrentRound(),
       let question = dataSource.getQuestion(forRound: currentRound)
     else { return nil }
     
@@ -89,7 +91,7 @@ extension GameVC: GameAnswersDelegate {
   
   func titleForAnswerButton(at index: Int) -> String? {
     guard
-      let currentRound = delegate?.getNumberOfCurrentRound(),
+      let currentRound = session?.getNumberOfCurrentRound(),
       let answers = dataSource.getAnswers(forRound: currentRound)
     else { return nil }
     
@@ -98,15 +100,17 @@ extension GameVC: GameAnswersDelegate {
   
   func didSelectAnswer(at index: Int) {
     guard
-      let currentRound = delegate?.getNumberOfCurrentRound(),
+      let currentRound = session?.getNumberOfCurrentRound(),
       let answers = dataSource.getAnswers(forRound: currentRound),
       let correctAnswer = dataSource.getCorrectAnswer(forRound: currentRound)
     else { return }
     
-    if answers[index] == correctAnswer {
-      delegate?.correctAnswer()
+    switch answers[index] == correctAnswer {
+    case true:
+      session?.correctAnswer()
+      guard !dataSource.checkIfLastQuestion() else { fallthrough }
       startNextRound()
-    } else {
+    case false:
       finishGame()
     }
   }

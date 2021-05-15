@@ -10,12 +10,14 @@ import Foundation
 final class Game {
   
   static let shared = Game()
-  
   var currentGame: GameSession?
+  
   private var questions: [Question]
+  private var results: [GameResult]
   
   private init() {
     questions = .init()
+    results = .init()
     setQuestions()
   }
 }
@@ -24,7 +26,10 @@ extension Game {
   
   func finishedGameWithResult() -> Int {
     guard let currentGame = currentGame else { return 0 }
-    return currentGame.correctAnswers
+    let gameResults = GameResult(currentGame, questions.count, Date())
+    results.append(gameResults)
+    self.currentGame = nil
+    return gameResults.correctAnswers
   }
   
   func usePrompt(prompt: GamePrompt, forRound: Int) -> [Int] {
@@ -52,6 +57,14 @@ extension Game {
     guard questions.count > forRound else { return nil }
     return questions[forRound].correctAnswer
   }
+  
+  func checkIfLastQuestion() -> Bool {
+    guard let currentGame = currentGame else { return true }
+    return questions.count == currentGame.correctAnswers
+  }
+}
+
+extension Game {
   
   private func setQuestions() {
     questions = [

@@ -53,9 +53,7 @@ final class GameAnswersView: UIView {
 extension GameAnswersView {
   
   func hideButtons(at indicies: [Int]) {
-    indicies.forEach { index in
-      allButtons[index].isHidden = true
-    }
+    indicies.forEach { allButtons[$0].isHidden = true }
   }
   
   func highlightButton(at index: [Int]) {
@@ -69,7 +67,7 @@ extension GameAnswersView {
         .flatMap { $0 }
       
       guard let title = title else { return }
-      let newTitle = "\(title) - \(percent)%"
+      let newTitle = "\(title)\n\n\(percent)%"
       allButtons[buttonIndex].setTitle(newTitle, for: .normal)
     }
   }
@@ -91,6 +89,7 @@ extension GameAnswersView {
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setTitleColor(.black, for: .normal)
     button.titleLabel?.numberOfLines = 0
+    button.titleLabel?.textAlignment = .center
     button.addTarget(self, action: #selector(didSelectAnswer(_:)), for: .touchUpInside)
     allButtons.append(button)
     

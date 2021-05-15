@@ -38,9 +38,6 @@ extension MainMenuVC: MainMenuDelegate {
         let gameVC = storyboard?
           .instantiateViewController(identifier: "GameVC") as? GameVC
       else { return }
-      
-      Game.shared.currentGame = .init()
-      gameVC.delegate = Game.shared.currentGame
       gameVC.onGameEnd = { [weak self] result in
         self?.previousGameResult = result
       }
