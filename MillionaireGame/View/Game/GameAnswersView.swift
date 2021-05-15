@@ -9,7 +9,7 @@ import UIKit
 
 protocol GameAnswersDelegate: AnyObject {
   func didSelectAnswer(at index: Int)
-  func titleForAnswerButton(at index: Int) -> String
+  func titleForAnswerButton(at index: Int) -> String?
 }
 
 final class GameAnswersView: UIView {

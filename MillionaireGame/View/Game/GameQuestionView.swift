@@ -8,7 +8,7 @@
 import UIKit
 
 protocol GameQuestionDelegate: AnyObject {
-  func qustionForCurrentRound() -> String
+  func qustionForCurrentRound() -> String?
 }
 
 final class GameQuestionView: UIView {
@@ -34,6 +34,7 @@ final class GameQuestionView: UIView {
     addSubview(question)
     question.translatesAutoresizingMaskIntoConstraints = false
     question.textAlignment = .center
+    question.numberOfLines = 0
     
     NSLayoutConstraint.activate([
       question.leadingAnchor.constraint(equalTo: self.leadingAnchor),

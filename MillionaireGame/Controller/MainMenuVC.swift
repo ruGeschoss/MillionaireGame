@@ -27,10 +27,13 @@ extension MainMenuVC: MainMenuDelegate {
   func navigate(_ path: NavigationPaths) {
     switch path {
     case .newGame:
-      guard let storyboard = storyboard else { return }
+      guard
+        let gameVC = storyboard?
+          .instantiateViewController(identifier: "GameVC") as? GameVC
+      else { return }
       
-      let gameVC = storyboard
-        .instantiateViewController(identifier: "GameVC")
+      Game.shared.currentGame = .init()
+      gameVC.delegate = Game.shared.currentGame
       navigationController?.pushViewController(gameVC, animated: true)
     case .results:
       print("Not yet")

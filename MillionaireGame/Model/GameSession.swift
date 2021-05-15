@@ -13,47 +13,35 @@ final class GameSession {
   private(set) var isCallFriendPromptEnabled: Bool
   private(set) var isHallHelpPromptEnabled: Bool
   private(set) var correctAnswers: Int
-  private(set) var totalQuestions: Int
-  private(set) var currentReward: Int
   
   init() {
     isFiftyPromptEnabled = true
     isCallFriendPromptEnabled = true
     isHallHelpPromptEnabled = true
     correctAnswers = .zero
-    currentReward = .zero
-    totalQuestions = .zero
   }
   
 }
 
-// MARK: - Answers
-// extension GameSession {
-//
-//  func correctAnswer() {
-//    totalQuestions += 1
-//    correctAnswers += 1
-//    // set currentReward based on enum
-//  }
-//
-//  func wrongAnswer() {
-//    totalQuestions += 1
-//  }
-//
-// }
-
-// MARK: - Prompts
-// extension GameSession {
-//
-//  func useFiftyPrompt() {
-//    isFiftyPromptEnabled = false
-//  }
-//
-//  func useCallFriendPrompt() {
-//    isCallFriendPromptEnabled = false
-//  }
-//
-//  func useHallHelpPrompt() {
-//    isHallHelpPromptEnabled = false
-//  }
-// }
+extension GameSession: CurrentGameSession {
+  
+  func promptUsed(prompt: GamePrompt) {
+    switch prompt {
+    case .fifty:
+      isFiftyPromptEnabled = false
+    case .call:
+      isCallFriendPromptEnabled = false
+    case .hall:
+      isHallHelpPromptEnabled = false
+    }
+  }
+  
+  func correctAnswer() {
+    correctAnswers += 1
+  }
+  
+  func getNumberOfCurrentRound() -> Int {
+    correctAnswers + 1
+  }
+  
+}
