@@ -27,6 +27,7 @@ class GameVC: UIViewController {
   
   weak var delegate: CurrentGameSession?
   private let dataSource = Game.shared
+  var onGameEnd: ((Int) -> Void)?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -45,6 +46,7 @@ class GameVC: UIViewController {
   }
   
   private func finishGame() {
+    self.onGameEnd?(dataSource.finishedGameWithResult())
     navigationController?.popViewController(animated: true)
   }
   

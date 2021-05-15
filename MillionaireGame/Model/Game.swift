@@ -22,6 +22,11 @@ final class Game {
 
 extension Game {
   
+  func finishedGameWithResult() -> Int {
+    guard let currentGame = currentGame else { return 0 }
+    return currentGame.correctAnswers
+  }
+  
   func getQuestion(forRound: Int) -> String? {
     guard questions.count > forRound else { return nil }
     return questions[forRound].question

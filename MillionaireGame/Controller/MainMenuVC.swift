@@ -15,9 +15,16 @@ class MainMenuVC: UIViewController {
   
   @IBOutlet var mainMenu: MainMenuView!
   
+  private var previousGameResult: Int?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     mainMenu.delegate = self
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    mainMenu.reload()
   }
   
 }
@@ -34,10 +41,18 @@ extension MainMenuVC: MainMenuDelegate {
       
       Game.shared.currentGame = .init()
       gameVC.delegate = Game.shared.currentGame
+      gameVC.onGameEnd = { [weak self] result in
+        self?.previousGameResult = result
+      }
       navigationController?.pushViewController(gameVC, animated: true)
     case .results:
       print("Not yet")
     }
+  }
+  
+  func getLastResult() -> String? {
+    guard let result = previousGameResult else { return nil }
+    return "Результат предыдущей игры: \(result)"
   }
   
 }

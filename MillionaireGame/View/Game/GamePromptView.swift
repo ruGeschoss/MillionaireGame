@@ -67,7 +67,7 @@ extension GamePromptView {
   
   private func initFiftyPrompt() {
     commonButtonInit(button: fiftyPrompt)
-    fiftyPrompt.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+    fiftyPrompt.setImage(UIImage(systemName: "percent"), for: .normal)
     
     NSLayoutConstraint.activate([
       fiftyPrompt.leadingAnchor.constraint(equalTo: self.leadingAnchor)
@@ -76,7 +76,7 @@ extension GamePromptView {
   
   private func initCallFriendPrompt() {
     commonButtonInit(button: callFriendPrompt)
-    callFriendPrompt.setImage(UIImage(systemName: "square.fill"), for: .normal)
+    callFriendPrompt.setImage(UIImage(systemName: "phone.fill"), for: .normal)
     
     NSLayoutConstraint.activate([
       callFriendPrompt.leadingAnchor.constraint(equalTo: fiftyPrompt.trailingAnchor)
@@ -85,7 +85,7 @@ extension GamePromptView {
   
   private func initAskHallPrompt() {
     commonButtonInit(button: askHallPrompt)
-    askHallPrompt.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+    askHallPrompt.setImage(UIImage(systemName: "person.3.fill"), for: .normal)
 
     NSLayoutConstraint.activate([
       askHallPrompt.leadingAnchor.constraint(equalTo: callFriendPrompt.trailingAnchor),

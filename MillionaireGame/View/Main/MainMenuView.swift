@@ -9,6 +9,7 @@ import UIKit
 
 protocol MainMenuDelegate: AnyObject {
   func navigate(_ path: NavigationPaths)
+  func getLastResult() -> String?
 }
 
 final class MainMenuView: UIView {
@@ -16,6 +17,10 @@ final class MainMenuView: UIView {
   @IBOutlet weak var lastResult: UILabel!
   
   weak var delegate: MainMenuDelegate?
+  
+  func reload() {
+    lastResult.text = delegate?.getLastResult()
+  }
   
   @IBAction func startGameTapped(_ sender: UIButton) {
     delegate?.navigate(.newGame)
