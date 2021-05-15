@@ -27,13 +27,24 @@ extension Game {
     return currentGame.correctAnswers
   }
   
+  func usePrompt(prompt: GamePrompt, forRound: Int) -> [Int] {
+    switch prompt {
+    case .fifty:
+      return questions[forRound].fiftyPromptShouldHideAt()
+    case .call:
+      return questions[forRound].callFriendShouldHighlightAt()
+    case .hall:
+      return questions[forRound].hallHelpPercentResults()
+    }
+  }
+  
   func getQuestion(forRound: Int) -> String? {
     guard questions.count > forRound else { return nil }
     return questions[forRound].question
   }
   
-  func getAnswers(forRound: Int) -> [String] {
-    guard questions.count > forRound else { return [] }
+  func getAnswers(forRound: Int) -> [String]? {
+    guard questions.count > forRound else { return nil }
     return questions[forRound].answers
   }
   

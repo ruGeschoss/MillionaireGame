@@ -35,30 +35,45 @@ final class GameAnswersView: UIView {
   func reload() {
     allButtons.enumerated().forEach { index, button in
       button.isHidden = false
-      button.isEnabled = true
       button.backgroundColor = .clear
-      let title = delegate?.titleForAnswerButton(at: index)
-      if let title = title {
-        button.setTitle(title, for: .normal)
-      }
+      let title = delegate?
+        .titleForAnswerButton(at: index)
+        .flatMap { $0 }
+      button.setTitle(title, for: .normal)
     }
-  }
-  
-  func hideButtons(at indicies: [Int]) {
-    indicies.forEach { index in
-      allButtons[index].isHidden = true
-      allButtons[index].isEnabled = false
-    }
-  }
-  
-  func highlightButton(at index: Int) {
-    allButtons[index].backgroundColor = .cyan
   }
   
   @objc func didSelectAnswer(_ sender: UIButton) {
     guard let index = allButtons.firstIndex(of: sender) else { return }
     delegate?.didSelectAnswer(at: index)
   }
+}
+
+// MARK: Prompt influence
+extension GameAnswersView {
+  
+  func hideButtons(at indicies: [Int]) {
+    indicies.forEach { index in
+      allButtons[index].isHidden = true
+    }
+  }
+  
+  func highlightButton(at index: [Int]) {
+    index.forEach { allButtons[$0].backgroundColor = .cyan }
+  }
+  
+  func showPercentOnButtons(percents: [Int]) {
+    percents.enumerated().forEach { buttonIndex, percent in
+      let title = delegate?
+        .titleForAnswerButton(at: buttonIndex)
+        .flatMap { $0 }
+      
+      guard let title = title else { return }
+      let newTitle = "\(title) - \(percent)%"
+      allButtons[buttonIndex].setTitle(newTitle, for: .normal)
+    }
+  }
+  
 }
 
 // MARK: - Initialisation
@@ -75,6 +90,7 @@ extension GameAnswersView {
     addSubview(button)
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setTitleColor(.black, for: .normal)
+    button.titleLabel?.numberOfLines = 0
     button.addTarget(self, action: #selector(didSelectAnswer(_:)), for: .touchUpInside)
     allButtons.append(button)
     

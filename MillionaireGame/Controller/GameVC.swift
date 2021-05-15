@@ -55,39 +55,53 @@ class GameVC: UIViewController {
 extension GameVC: GamePromptDelegate {
   
   func didSelectPrompt(_ prompt: GamePrompt) {
+    guard let currentRound = delegate?
+            .getNumberOfCurrentRound() else { return }
+    let indicies = dataSource
+      .usePrompt(prompt: prompt, forRound: currentRound)
+    
     switch prompt {
     case .fifty:
-      answersView.hideButtons(at: [1, 2])
+      answersView.hideButtons(at: indicies)
     case .call:
-      answersView.highlightButton(at: 0)
+      answersView.highlightButton(at: indicies)
     case .hall:
-      print("Hall is empty :[")
+      answersView.showPercentOnButtons(percents: indicies)
     }
     delegate?.promptUsed(prompt: prompt)
   }
 }
 
 extension GameVC: GameQuestionDelegate {
+  
   func qustionForCurrentRound() -> String? {
-    guard let currentRound = delegate?
-            .getNumberOfCurrentRound() else { return nil }
-    return dataSource.getQuestion(forRound: currentRound)
+    guard
+      let currentRound = delegate?.getNumberOfCurrentRound(),
+      let question = dataSource.getQuestion(forRound: currentRound)
+    else { return nil }
+    
+    return question
   }
+  
 }
 
 extension GameVC: GameAnswersDelegate {
+  
   func titleForAnswerButton(at index: Int) -> String? {
-    guard let currentRound = delegate?
-            .getNumberOfCurrentRound() else { return nil }
-    let answers = dataSource.getAnswers(forRound: currentRound)
+    guard
+      let currentRound = delegate?.getNumberOfCurrentRound(),
+      let answers = dataSource.getAnswers(forRound: currentRound)
+    else { return nil }
+    
     return answers[index]
   }
   
   func didSelectAnswer(at index: Int) {
-    guard let currentRound = delegate?
-            .getNumberOfCurrentRound() else { return }
-    let answers = dataSource.getAnswers(forRound: currentRound)
-    let correctAnswer = dataSource.getCorrectAnswer(forRound: currentRound)
+    guard
+      let currentRound = delegate?.getNumberOfCurrentRound(),
+      let answers = dataSource.getAnswers(forRound: currentRound),
+      let correctAnswer = dataSource.getCorrectAnswer(forRound: currentRound)
+    else { return }
     
     if answers[index] == correctAnswer {
       delegate?.correctAnswer()
@@ -96,4 +110,5 @@ extension GameVC: GameAnswersDelegate {
       finishGame()
     }
   }
+  
 }
