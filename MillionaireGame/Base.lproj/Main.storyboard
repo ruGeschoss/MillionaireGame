@@ -1,24 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xoH-Yc-dzX">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main MenuVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <viewController restorationIdentifier="MainMenuVC" storyboardIdentifier="MainMenuVC" id="BYZ-38-t0r" customClass="MainMenuVC" customModule="MillionaireGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="MainMenuView" customModule="MillionaireGame" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="jDO-TR-GjD">
+                                <rect key="frame" x="181.5" y="400" width="51" height="96.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X7M-g0-yh3">
+                                        <rect key="frame" x="0.0" y="0.0" width="51" height="30"/>
+                                        <state key="normal" title="Results"/>
+                                        <connections>
+                                            <action selector="allResultsTapped:" destination="8bC-Xf-vdC" eventType="touchUpInside" id="ABX-z8-X9i"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WKr-Zq-QK7">
+                                        <rect key="frame" x="0.0" y="38" width="51" height="30"/>
+                                        <state key="normal" title="Play"/>
+                                        <connections>
+                                            <action selector="startGameTapped:" destination="8bC-Xf-vdC" eventType="touchUpInside" id="TIM-7d-CiO"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXH-cr-cC1">
+                                        <rect key="frame" x="0.0" y="76" width="51" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="jDO-TR-GjD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hFs-bG-1fy"/>
+                            <constraint firstItem="jDO-TR-GjD" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="twd-Px-wDn"/>
+                        </constraints>
+                        <connections>
+                            <outlet property="lastResult" destination="aXH-cr-cC1" id="fQS-k8-bYN"/>
+                        </connections>
                     </view>
+                    <navigationItem key="navigationItem" id="AAl-TD-zbR"/>
+                    <connections>
+                        <outlet property="mainMenu" destination="8bC-Xf-vdC" id="KBB-8Y-Dj5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="928.98550724637687" y="88.392857142857139"/>
+        </scene>
+        <!--ResultsVC-->
+        <scene sceneID="ow8-t3-SAf">
+            <objects>
+                <viewController restorationIdentifier="ResultsVC" storyboardIdentifier="ResultsVC" id="qGl-vw-e8U" customClass="ResultsVC" customModule="MillionaireGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rfC-fb-BMf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c3K-9Q-U76">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="y0W-uA-5X9"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="y0W-uA-5X9" firstAttribute="trailing" secondItem="c3K-9Q-U76" secondAttribute="trailing" id="Whs-Yg-0eN"/>
+                            <constraint firstItem="c3K-9Q-U76" firstAttribute="top" secondItem="y0W-uA-5X9" secondAttribute="top" id="fIb-Rt-v8h"/>
+                            <constraint firstItem="c3K-9Q-U76" firstAttribute="leading" secondItem="y0W-uA-5X9" secondAttribute="leading" id="gH2-rs-u7F"/>
+                            <constraint firstItem="y0W-uA-5X9" firstAttribute="bottom" secondItem="c3K-9Q-U76" secondAttribute="bottom" id="jgr-xo-UHR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="resultsTableView" destination="c3K-9Q-U76" id="52p-fX-miC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Azd-bU-O3V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1790" y="-585"/>
+        </scene>
+        <!--GameVC-->
+        <scene sceneID="kZN-VN-vUZ">
+            <objects>
+                <viewController restorationIdentifier="GameVC" storyboardIdentifier="GameVC" id="D5O-hy-wq0" customClass="GameVC" customModule="MillionaireGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2f6-p3-1Ku">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="end-wv-l1M" customClass="GameAnswersView" customModule="MillionaireGame" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="612" width="414" height="250"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="Dkz-HF-dIs"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qj9-Ts-DYw" customClass="GameQuestionView" customModule="MillionaireGame" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="512" width="414" height="100"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="nEq-JG-Z2M"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RfG-Wn-ATR" customClass="GamePromptView" customModule="MillionaireGame" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="462" width="414" height="50"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="faN-JY-gKB"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="896-hi-JcK">
+                                <rect key="frame" x="0.0" y="44" width="414" height="418"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="W1B-e1-y2o"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="896-hi-JcK" firstAttribute="top" secondItem="W1B-e1-y2o" secondAttribute="top" id="9fU-z4-jgW"/>
+                            <constraint firstItem="W1B-e1-y2o" firstAttribute="trailing" secondItem="end-wv-l1M" secondAttribute="trailing" id="D4t-I6-egV"/>
+                            <constraint firstItem="RfG-Wn-ATR" firstAttribute="top" secondItem="896-hi-JcK" secondAttribute="bottom" id="IWn-Py-TBI"/>
+                            <constraint firstItem="RfG-Wn-ATR" firstAttribute="leading" secondItem="W1B-e1-y2o" secondAttribute="leading" id="IwE-Ko-lUJ"/>
+                            <constraint firstItem="end-wv-l1M" firstAttribute="top" secondItem="qj9-Ts-DYw" secondAttribute="bottom" id="JAZ-dn-yPU"/>
+                            <constraint firstItem="W1B-e1-y2o" firstAttribute="trailing" secondItem="896-hi-JcK" secondAttribute="trailing" id="Jba-GH-j6P"/>
+                            <constraint firstItem="end-wv-l1M" firstAttribute="leading" secondItem="W1B-e1-y2o" secondAttribute="leading" id="Ka4-qG-lNh"/>
+                            <constraint firstItem="qj9-Ts-DYw" firstAttribute="top" secondItem="RfG-Wn-ATR" secondAttribute="bottom" id="Vpe-on-PlK"/>
+                            <constraint firstItem="896-hi-JcK" firstAttribute="leading" secondItem="W1B-e1-y2o" secondAttribute="leading" id="ZcE-GO-jgD"/>
+                            <constraint firstItem="W1B-e1-y2o" firstAttribute="trailing" secondItem="RfG-Wn-ATR" secondAttribute="trailing" id="dXb-xI-uKK"/>
+                            <constraint firstItem="W1B-e1-y2o" firstAttribute="trailing" secondItem="qj9-Ts-DYw" secondAttribute="trailing" id="iaU-cN-R4s"/>
+                            <constraint firstItem="W1B-e1-y2o" firstAttribute="bottom" secondItem="end-wv-l1M" secondAttribute="bottom" id="l2b-MY-EVU"/>
+                            <constraint firstItem="qj9-Ts-DYw" firstAttribute="leading" secondItem="W1B-e1-y2o" secondAttribute="leading" id="spj-ge-IOg"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="answersView" destination="end-wv-l1M" id="DIz-cU-anC"/>
+                        <outlet property="gameKeeper" destination="896-hi-JcK" id="vji-05-VOi"/>
+                        <outlet property="promptView" destination="RfG-Wn-ATR" id="kiK-pW-JMe"/>
+                        <outlet property="questionView" destination="qj9-Ts-DYw" id="GlE-DT-Xxb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Tl-VN-NF5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1789.8550724637682" y="87.723214285714278"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="6xb-O4-8uR">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="xoH-Yc-dzX" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="i2w-et-5K0">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="khM-Mp-Gke"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m0O-GG-xwa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="18.840579710144929" y="88.392857142857139"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
