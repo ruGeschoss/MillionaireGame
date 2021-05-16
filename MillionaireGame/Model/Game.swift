@@ -10,16 +10,44 @@ import Foundation
 final class Game {
   
   static let shared = Game()
+  
   var currentGame: GameSession?
+  private let caretaker = Caretaker<GameResult>()
   
   private var questions: [Question]
-  private var results: [GameResult]
+  private var results: [GameResult] {
+    didSet {
+      caretaker.save(results: results)
+    }
+  }
   
   private init() {
     questions = .init()
-    results = .init()
+    results = caretaker.retrieveResults()
+    print(results)
     setQuestions()
   }
+}
+
+extension Game {
+  
+  enum SortType {
+    case date, percent, timeSpent
+  }
+  
+  func getAllResults(_ sorted: SortType?) -> [GameResult] {
+    switch sorted {
+    case .date:
+      return results.sorted(by: { $0.dateFinished > $1.dateFinished })
+    case .percent:
+      return results.sorted(by: { $0.percent > $1.percent })
+    case .timeSpent:
+      return results
+    case .none:
+      return results
+    }
+  }
+  
 }
 
 extension Game {

@@ -24,6 +24,8 @@
 		B7122EA8264DDDD100D23FC9 /* GameAnswersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122EA7264DDDD100D23FC9 /* GameAnswersView.swift */; };
 		B7122EAA264DE47300D23FC9 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122EA9264DE47300D23FC9 /* MainMenuView.swift */; };
 		B7122EB12650649300D23FC9 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122EB02650649300D23FC9 /* GameResult.swift */; };
+		B7122EB326507CFD00D23FC9 /* Caretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122EB226507CFD00D23FC9 /* Caretaker.swift */; };
+		B7122EB5265088FB00D23FC9 /* ResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122EB4265088FB00D23FC9 /* ResultsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		B7122EA7264DDDD100D23FC9 /* GameAnswersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAnswersView.swift; sourceTree = "<group>"; };
 		B7122EA9264DE47300D23FC9 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		B7122EB02650649300D23FC9 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
+		B7122EB226507CFD00D23FC9 /* Caretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Caretaker.swift; sourceTree = "<group>"; };
+		B7122EB4265088FB00D23FC9 /* ResultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +125,7 @@
 				B7122E9D264D8EF400D23FC9 /* Game.swift */,
 				B7122E9F264D8F0200D23FC9 /* GameSession.swift */,
 				B7122EB02650649300D23FC9 /* GameResult.swift */,
+				B7122EB226507CFD00D23FC9 /* Caretaker.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -139,6 +144,7 @@
 			children = (
 				B7122E97264D8C3E00D23FC9 /* MainMenuVC.swift */,
 				B7122E99264D8D1900D23FC9 /* GameVC.swift */,
+				B7122EB4265088FB00D23FC9 /* ResultsVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -284,9 +290,11 @@
 				B7122E98264D8C3E00D23FC9 /* MainMenuVC.swift in Sources */,
 				B7122EAA264DE47300D23FC9 /* MainMenuView.swift in Sources */,
 				B7122EA4264DDDAA00D23FC9 /* GamePromptView.swift in Sources */,
+				B7122EB326507CFD00D23FC9 /* Caretaker.swift in Sources */,
 				B7122E9C264D8D5300D23FC9 /* Question.swift in Sources */,
 				B7122E9A264D8D1900D23FC9 /* GameVC.swift in Sources */,
 				B7122E77264C0C0D00D23FC9 /* MillionaireGame.xcdatamodeld in Sources */,
+				B7122EB5265088FB00D23FC9 /* ResultsVC.swift in Sources */,
 				B7122EA8264DDDD100D23FC9 /* GameAnswersView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

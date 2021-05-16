@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct GameResult {
+struct GameResult: Codable {
   let correctAnswers: Int
   let maxQuestions: Int
   let percent: Int
   let dateStarted: Date
   let dateFinished: Date
   let isFiftyPrompUsed: Bool
-  let isCallFPrompUsed: Bool
+  let isCallPrompUsed: Bool
   let isHallPrompUsed: Bool
   
   init(_ session: GameSession, _ maxQuestions: Int, _ time: Date) {
@@ -23,7 +23,7 @@ struct GameResult {
     self.dateStarted = session.dateStarted
     self.dateFinished = time
     self.isFiftyPrompUsed = session.isFiftyPromptEnabled
-    self.isCallFPrompUsed = session.isCallFriendPromptEnabled
+    self.isCallPrompUsed = session.isCallFriendPromptEnabled
     self.isHallPrompUsed = session.isHallHelpPromptEnabled
     
     let percent = Double(session.correctAnswers) / Double(maxQuestions) * 100
