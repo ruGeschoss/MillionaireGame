@@ -32,6 +32,8 @@ class MainMenuVC: UIViewController {
 extension MainMenuVC: MainMenuDelegate {
   
   func navigate(_ path: NavigationPaths) {
+    var destinationPath: UIViewController?
+    
     switch path {
     case .newGame:
       guard
@@ -41,10 +43,16 @@ extension MainMenuVC: MainMenuDelegate {
       gameVC.onGameEnd = { [weak self] result in
         self?.previousGameResult = result
       }
-      navigationController?.pushViewController(gameVC, animated: true)
+      destinationPath = gameVC
     case .results:
-      print("Not yet")
+      guard
+        let resultsVC = storyboard?
+          .instantiateViewController(identifier: "ResultsVC") as? ResultsVC
+      else { return }
+      destinationPath = resultsVC
     }
+    
+    navigationController?.pushViewController(destinationPath!, animated: true)
   }
   
   func getLastResult() -> String? {

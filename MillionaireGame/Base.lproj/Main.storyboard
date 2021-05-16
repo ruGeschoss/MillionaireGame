@@ -62,6 +62,36 @@
             </objects>
             <point key="canvasLocation" x="928.98550724637687" y="88.392857142857139"/>
         </scene>
+        <!--ResultsVC-->
+        <scene sceneID="ow8-t3-SAf">
+            <objects>
+                <viewController restorationIdentifier="ResultsVC" storyboardIdentifier="ResultsVC" id="qGl-vw-e8U" customClass="ResultsVC" customModule="MillionaireGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rfC-fb-BMf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c3K-9Q-U76">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="y0W-uA-5X9"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="y0W-uA-5X9" firstAttribute="trailing" secondItem="c3K-9Q-U76" secondAttribute="trailing" id="Whs-Yg-0eN"/>
+                            <constraint firstItem="c3K-9Q-U76" firstAttribute="top" secondItem="y0W-uA-5X9" secondAttribute="top" id="fIb-Rt-v8h"/>
+                            <constraint firstItem="c3K-9Q-U76" firstAttribute="leading" secondItem="y0W-uA-5X9" secondAttribute="leading" id="gH2-rs-u7F"/>
+                            <constraint firstItem="y0W-uA-5X9" firstAttribute="bottom" secondItem="c3K-9Q-U76" secondAttribute="bottom" id="jgr-xo-UHR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="resultsTableView" destination="c3K-9Q-U76" id="52p-fX-miC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Azd-bU-O3V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1790" y="-585"/>
+        </scene>
         <!--GameVC-->
         <scene sceneID="kZN-VN-vUZ">
             <objects>
