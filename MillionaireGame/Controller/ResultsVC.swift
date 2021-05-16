@@ -15,6 +15,15 @@ final class ResultsVC: UIViewController {
     super.viewDidLoad()
     resultsTableView.dataSource = self
     resultsTableView.delegate = self
+    
+    let swiper = UIScreenEdgePanGestureRecognizer()
+    swiper.edges = .left
+    swiper.addTarget(self, action: #selector(returnToMainMenu))
+    view.addGestureRecognizer(swiper)
+  }
+  
+  @objc func returnToMainMenu() {
+    navigationController?.popViewController(animated: true)
   }
   
 }
@@ -39,6 +48,6 @@ extension ResultsVC: UITableViewDataSource {
 extension ResultsVC: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    navigationController?.popViewController(animated: true)
+//    navigationController?.popViewController(animated: true)
   }
 }
