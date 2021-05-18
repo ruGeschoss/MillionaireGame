@@ -29,4 +29,8 @@ struct GameResult: Codable {
     let percent = Double(session.correctAnswers) / Double(maxQuestions) * 100
     self.percent = Int(percent.rounded())
   }
+  
+  var resultRepresentation: String {
+    "\(percent)%, \(correctAnswers)/\(maxQuestions)"
+  }
 }
