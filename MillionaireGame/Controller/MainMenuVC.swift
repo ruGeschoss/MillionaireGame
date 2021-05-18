@@ -8,7 +8,7 @@
 import UIKit
 
 enum NavigationPaths {
-  case results, newGame
+  case results, newGame, settings
 }
 
 class MainMenuVC: UIViewController {
@@ -50,6 +50,12 @@ extension MainMenuVC: MainMenuDelegate {
           .instantiateViewController(identifier: "ResultsVC") as? ResultsVC
       else { return }
       destinationPath = resultsVC
+    case .settings:
+      guard
+        let settingsVC = storyboard?
+          .instantiateViewController(identifier: "SettingsVC") as? SettingsVC
+      else { return }
+      destinationPath = settingsVC
     }
     
     navigationController?.pushViewController(destinationPath!, animated: true)

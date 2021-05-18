@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -42,11 +43,26 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XX5-b1-3Y0">
+                                <rect key="frame" x="344" y="44" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="UY1-m6-I8n"/>
+                                    <constraint firstAttribute="width" constant="50" id="ovS-5J-ZGd"/>
+                                </constraints>
+                                <state key="normal">
+                                    <imageReference key="image" image="gear" catalog="system" symbolScale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="settingsTapped:" destination="8bC-Xf-vdC" eventType="touchUpInside" id="4sT-i4-hzZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="XX5-b1-3Y0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Q1X-ak-lAA"/>
                             <constraint firstItem="jDO-TR-GjD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hFs-bG-1fy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="XX5-b1-3Y0" secondAttribute="trailing" constant="20" id="sqF-0i-5f6"/>
                             <constraint firstItem="jDO-TR-GjD" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="twd-Px-wDn"/>
                         </constraints>
                         <connections>
@@ -61,6 +77,52 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="928.98550724637687" y="88.392857142857139"/>
+        </scene>
+        <!--SettingsVC-->
+        <scene sceneID="nRa-vS-hY8">
+            <objects>
+                <viewController restorationIdentifier="SettingsVC" storyboardIdentifier="SettingsVC" id="pde-Zy-bIg" customClass="SettingsVC" customModule="MillionaireGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7xc-Y6-hon" customClass="SettingsView" customModule="MillionaireGame" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QSK-9l-xYu">
+                                <rect key="frame" x="355" y="103.5" width="51" height="31"/>
+                                <connections>
+                                    <action selector="firstSettingSwitchMoved:" destination="7xc-Y6-hon" eventType="valueChanged" id="kIJ-sf-eQL"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0f-ZH-UGq">
+                                <rect key="frame" x="10" y="94" width="345" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="zKo-Bc-Xgm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ikG-aS-uI3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="QSK-9l-xYu" firstAttribute="leading" secondItem="d0f-ZH-UGq" secondAttribute="trailing" id="Fs2-hr-nBg"/>
+                            <constraint firstItem="ikG-aS-uI3" firstAttribute="trailing" secondItem="QSK-9l-xYu" secondAttribute="trailing" constant="10" id="Xp6-jp-Xxn"/>
+                            <constraint firstItem="QSK-9l-xYu" firstAttribute="centerY" secondItem="d0f-ZH-UGq" secondAttribute="centerY" id="m0C-qd-XHd"/>
+                            <constraint firstItem="d0f-ZH-UGq" firstAttribute="leading" secondItem="ikG-aS-uI3" secondAttribute="leading" constant="10" id="unX-0A-5pG"/>
+                            <constraint firstItem="d0f-ZH-UGq" firstAttribute="top" secondItem="ikG-aS-uI3" secondAttribute="top" constant="50" id="zn7-Cr-iK2"/>
+                        </constraints>
+                        <connections>
+                            <outlet property="firstSettingLabel" destination="d0f-ZH-UGq" id="w6Z-8V-j4H"/>
+                            <outlet property="firstSettingSwitch" destination="QSK-9l-xYu" id="E0S-gR-x37"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="settingsView" destination="7xc-Y6-hon" id="7Z1-VU-3Ay"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X48-22-tm3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="929" y="-585"/>
         </scene>
         <!--ResultsVC-->
         <scene sceneID="ow8-t3-SAf">
@@ -152,7 +214,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Tl-VN-NF5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1789.8550724637682" y="87.723214285714278"/>
+            <point key="canvasLocation" x="1790" y="88"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6xb-O4-8uR">
@@ -173,6 +235,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="gear" catalog="system" width="128" height="119"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

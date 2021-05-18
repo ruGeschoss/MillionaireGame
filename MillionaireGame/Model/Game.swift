@@ -10,23 +10,18 @@ import Foundation
 final class Game {
   
   static let shared = Game()
+  private init() {}
   
   var currentGame: GameSession?
+  var settings = Settings()
   private let caretaker = Caretaker<GameResult>()
+  private let questionManager = QuestionManager()
   
-  private var questions: [Question]
   private var results: [GameResult] {
-    didSet {
-      caretaker.save(results: results)
-    }
+    get { caretaker.retrieveResults() }
+    set { caretaker.save(results: newValue) }
   }
   
-  private init() {
-    questions = .init()
-    results = caretaker.retrieveResults()
-    print(results)
-    setQuestions()
-  }
 }
 
 extension Game {
@@ -35,6 +30,7 @@ extension Game {
     case date, percent, timeSpent
   }
   
+  // TODO: Enable sorting in ResultsVC
   func getAllResults(_ sorted: SortType?) -> [GameResult] {
     switch sorted {
     case .date:
@@ -52,87 +48,95 @@ extension Game {
 
 extension Game {
   
+  func startNewGame() {
+    currentGame = .init(dateStarted: Date())
+    questionManager.setupQuestions(settings: settings)
+  }
+  
   func finishedGameWithResult() -> Int {
     guard let currentGame = currentGame else { return 0 }
-    let gameResults = GameResult(currentGame, questions.count, Date())
+    
+    let questionsCount = questionManager.questionsCount()
+    let gameResults = GameResult(currentGame, questionsCount, Date())
     results.append(gameResults)
     self.currentGame = nil
     return gameResults.correctAnswers
   }
   
-  func usePrompt(prompt: GamePrompt, forRound: Int) -> [Int] {
+  func usePromptOnIndicies(prompt: GamePrompt) -> [Int] {
+    guard
+      let currentRound = currentGame?.getNumberOfCurrentRound()
+    else { return [] }
+    
+    let question = questionManager.questionForRound(round: currentRound)
+    currentGame?.promptUsed(prompt: prompt)
+    
     switch prompt {
     case .fifty:
-      return questions[forRound].fiftyPromptShouldHideAt()
+      return question.fiftyPromptShouldHideAt()
     case .call:
-      return questions[forRound].callFriendShouldHighlightAt()
+      return question.callFriendShouldHighlightAt()
     case .hall:
-      return questions[forRound].hallHelpPercentResults()
+      return question.hallHelpPercentResults()
     }
   }
   
-  func getQuestion(forRound: Int) -> String? {
-    guard questions.count > forRound else { return nil }
-    return questions[forRound].question
+  func getQuestion() -> String? {
+    guard
+      let currentRound = currentGame?.getNumberOfCurrentRound(),
+      questionManager.questionsCount() > currentRound
+    else { return nil }
+    
+    return questionManager
+      .questionForRound(round: currentRound)
+      .question
   }
   
-  func getAnswers(forRound: Int) -> [String]? {
-    guard questions.count > forRound else { return nil }
-    return questions[forRound].answers
+  func getAnswers() -> [String]? {
+    guard
+      let currentRound = currentGame?.getNumberOfCurrentRound(),
+      questionManager.questionsCount() > currentRound
+    else { return nil }
+    
+    return questionManager
+      .questionForRound(round: currentRound)
+      .answers
   }
   
-  func getCorrectAnswer(forRound: Int) -> String? {
-    guard questions.count > forRound else { return nil }
-    return questions[forRound].correctAnswer
+  func getCorrectAnswer() -> String? {
+    guard
+      let currentRound = currentGame?.getNumberOfCurrentRound(),
+      questionManager.questionsCount() > currentRound
+    else { return nil }
+    
+    return questionManager
+      .questionForRound(round: currentRound)
+      .correctAnswer
   }
   
-  func checkIfLastQuestion() -> Bool {
-    guard let currentGame = currentGame else { return true }
-    return questions.count == currentGame.correctAnswers
+  func isLastQuestion() -> Bool {
+    guard
+      let correctAnswers = currentGame?.correctAnswers,
+      questionManager.questionsCount() == correctAnswers
+    else { return false }
+    
+    return true
   }
-}
-
-extension Game {
   
-  // TODO: Need to get questions from JSON
-  private func setQuestions() {
-    questions = [
-      Question(
-        question: "Белым снегом всё одето - \nЗначит, наступает ...",
-        answers: ["Лето", "Осень", "Зима", "Весна"],
-        correctAnswer: "Зима"),
-      Question(
-        question: "Ночью каждое оконце \nСлабо освещает ...",
-        answers: ["Фонарный столб", "Луна", "Местный поп", "Солнце"],
-        correctAnswer: "Луна"),
-      Question(
-        question: "Кукарекает спросонок \nМилый, добрый ..",
-        answers: ["Котик", "Петух", "Поросёнок", "Медвежонок"],
-        correctAnswer: "Петух"),
-      Question(
-        question: "Под деревом четыре льва, \nОдин ушёл, осталось ...",
-        answers: ["Один", "Два", "Три", "Выжить"],
-        correctAnswer: "Три"),
-      Question(
-        question: "Туристы, приезжающие на Майорку, \nобязаны заплатить налог…",
-        answers: ["На плавки", "На пальмы", "На солнце", "На песок"],
-        correctAnswer: "На солнце"),
-      Question(
-        question: "Российский мультфильм, удостоенный «Оскара», — это…",
-        answers: ["Простоквашино", "Винни-Пух", "Старик и море", "Ну, погоди!"],
-        correctAnswer: "Старик и море"),
-      Question(
-        question: "Какая берёзка стояла во поле?",
-        answers: ["Высокая", "Зеленая", "Кудрявая", "Засохшая"],
-        correctAnswer: "Кудрявая"),
-      Question(
-        question: "Сколько лет рыбачил старик из сказки А.С.Пушкина \"Сказка о рыбаке и рыбке?\"",
-        answers: ["43", "23", "53", "33"],
-        correctAnswer: "33"),
-      Question(
-        question: "Какому коню в зубы не смотрят?",
-        answers: ["Жареному", "Дарёному", "Горем убитому", "С кариесом"],
-        correctAnswer: "Дарёному")
-    ]
+  func isCorrectAnswer(answerIndex: Int) -> Bool {
+    guard
+      let answers = getAnswers(),
+      let correctAnswer = getCorrectAnswer(),
+      let currentGame = currentGame
+    else { return false }
+    
+    switch answers[answerIndex] == correctAnswer {
+    case true:
+      currentGame.correctAnswer()
+      return true
+    case false:
+      return false
+    }
   }
+  
 }

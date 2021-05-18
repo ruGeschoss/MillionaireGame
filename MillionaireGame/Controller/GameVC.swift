@@ -25,21 +25,18 @@ class GameVC: UIViewController {
   @IBOutlet weak var questionView: GameQuestionView!
   @IBOutlet weak var answersView: GameAnswersView!
   
-  weak var session: CurrentGameSession?
-  private let dataSource = Game.shared
+  private let game = Game.shared
   var onGameEnd: ((Int) -> Void)?
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    dataSource.currentGame = .init(dateStarted: Date())
-    session = dataSource.currentGame
     
     promptView.delegate = self
     questionView.delegate = self
     answersView.delegate = self
     
-    questionView.reload()
-    answersView.reload()
+    game.startNewGame()
+    startNextRound()
   }
   
   private func startNextRound() {
@@ -48,7 +45,7 @@ class GameVC: UIViewController {
   }
   
   private func finishGame() {
-    self.onGameEnd?(dataSource.finishedGameWithResult())
+    self.onGameEnd?(game.finishedGameWithResult())
     navigationController?.popViewController(animated: true)
   }
   
@@ -57,10 +54,7 @@ class GameVC: UIViewController {
 extension GameVC: GamePromptDelegate {
   
   func didSelectPrompt(_ prompt: GamePrompt) {
-    guard let currentRound = session?
-            .getNumberOfCurrentRound() else { return }
-    let indicies = dataSource
-      .usePrompt(prompt: prompt, forRound: currentRound)
+    let indicies = game.usePromptOnIndicies(prompt: prompt)
     
     switch prompt {
     case .fifty:
@@ -70,19 +64,14 @@ extension GameVC: GamePromptDelegate {
     case .hall:
       answersView.showPercentOnButtons(percents: indicies)
     }
-    session?.promptUsed(prompt: prompt)
   }
+  
 }
 
 extension GameVC: GameQuestionDelegate {
   
   func qustionForCurrentRound() -> String? {
-    guard
-      let currentRound = session?.getNumberOfCurrentRound(),
-      let question = dataSource.getQuestion(forRound: currentRound)
-    else { return nil }
-    
-    return question
+    game.getQuestion()
   }
   
 }
@@ -90,29 +79,14 @@ extension GameVC: GameQuestionDelegate {
 extension GameVC: GameAnswersDelegate {
   
   func titleForAnswerButton(at index: Int) -> String? {
-    guard
-      let currentRound = session?.getNumberOfCurrentRound(),
-      let answers = dataSource.getAnswers(forRound: currentRound)
-    else { return nil }
-    
-    return answers[index]
+    guard let titles = game.getAnswers() else { return nil }
+    return titles[index]
   }
   
   func didSelectAnswer(at index: Int) {
-    guard
-      let currentRound = session?.getNumberOfCurrentRound(),
-      let answers = dataSource.getAnswers(forRound: currentRound),
-      let correctAnswer = dataSource.getCorrectAnswer(forRound: currentRound)
-    else { return }
-    
-    switch answers[index] == correctAnswer {
-    case true:
-      session?.correctAnswer()
-      guard !dataSource.checkIfLastQuestion() else { fallthrough }
-      startNextRound()
-    case false:
-      finishGame()
-    }
+    let isCorrectAnswer = game.isCorrectAnswer(answerIndex: index)
+    let isLastRound = game.isLastQuestion()
+    isCorrectAnswer && !isLastRound ? startNextRound() : finishGame()
   }
   
 }
