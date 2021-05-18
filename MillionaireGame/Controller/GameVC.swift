@@ -24,6 +24,7 @@ class GameVC: UIViewController {
   @IBOutlet weak var promptView: GamePromptView!
   @IBOutlet weak var questionView: GameQuestionView!
   @IBOutlet weak var answersView: GameAnswersView!
+  private var currentRoundLabel = UILabel()
   
   private let game = Game.shared
   var onGameEnd: ((Int) -> Void)?
@@ -37,6 +38,7 @@ class GameVC: UIViewController {
     
     game.startNewGame()
     startNextRound()
+    setupCurrentRoundLabel()
   }
   
   private func startNextRound() {
@@ -87,6 +89,45 @@ extension GameVC: GameAnswersDelegate {
     let isCorrectAnswer = game.isCorrectAnswer(answerIndex: index)
     let isLastRound = game.isLastQuestion()
     isCorrectAnswer && !isLastRound ? startNextRound() : finishGame()
+  }
+  
+}
+
+extension GameVC {
+  
+  private enum Constants {
+    static let dimensions: CGFloat = 50
+    static let fontSize: CGFloat = dimensions * 0.8
+    static let borderWidth: CGFloat = 2
+  }
+  
+  private func setupCurrentRoundLabel() {
+    view.addSubview(currentRoundLabel)
+    currentRoundLabel.backgroundColor = .yellow
+    currentRoundLabel.textColor = .red
+    currentRoundLabel.translatesAutoresizingMaskIntoConstraints = false
+    currentRoundLabel.textAlignment = .center
+    currentRoundLabel.font = .systemFont(ofSize: Constants.fontSize)
+    currentRoundLabel.clipsToBounds = true
+    currentRoundLabel.layer.cornerRadius = Constants.dimensions / 2
+    currentRoundLabel.layer.borderWidth = Constants.borderWidth
+    currentRoundLabel.layer.borderColor = UIColor.red.cgColor
+    
+    NSLayoutConstraint.activate([
+      currentRoundLabel.bottomAnchor.constraint(equalTo: promptView.topAnchor),
+      currentRoundLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      currentRoundLabel.widthAnchor.constraint(equalToConstant: Constants.dimensions),
+      currentRoundLabel.heightAnchor.constraint(equalToConstant: Constants.dimensions)
+    ])
+    
+    game.currentGame?
+      .correctAnswers
+      .addObserver(currentRoundLabel,
+                   removeIfExists: true,
+                   options: [.new, .initial]) { [weak self] correctAnswers, _ in
+        let currentRound = correctAnswers + 1
+        self?.currentRoundLabel.text = currentRound.description
+      }
   }
   
 }

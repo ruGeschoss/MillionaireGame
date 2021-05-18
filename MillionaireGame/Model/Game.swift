@@ -117,7 +117,7 @@ extension Game {
   func isLastQuestion() -> Bool {
     guard
       let correctAnswers = currentGame?.correctAnswers,
-      questionManager.questionsCount() == correctAnswers
+      questionManager.questionsCount() == correctAnswers.value
     else { return false }
     
     return true

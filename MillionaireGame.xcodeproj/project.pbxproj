@@ -31,6 +31,7 @@
 		B7122EC02653E44400D23FC9 /* QuestionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122EBF2653E44400D23FC9 /* QuestionManager.swift */; };
 		B7122EC22653E48800D23FC9 /* QuestionOrderStratagy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122EC12653E48800D23FC9 /* QuestionOrderStratagy.swift */; };
 		B7122EC72654064400D23FC9 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122EC62654064400D23FC9 /* Settings.swift */; };
+		B7122EC9265412C600D23FC9 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122EC8265412C600D23FC9 /* Observable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		B7122EBF2653E44400D23FC9 /* QuestionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionManager.swift; sourceTree = "<group>"; };
 		B7122EC12653E48800D23FC9 /* QuestionOrderStratagy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionOrderStratagy.swift; sourceTree = "<group>"; };
 		B7122EC62654064400D23FC9 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		B7122EC8265412C600D23FC9 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 			children = (
 				B7122EB226507CFD00D23FC9 /* Caretaker.swift */,
 				B7122E75264C0C0D00D23FC9 /* MillionaireGame.xcdatamodeld */,
+				B7122EC8265412C600D23FC9 /* Observable.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				B7122E9A264D8D1900D23FC9 /* GameVC.swift in Sources */,
 				B7122E77264C0C0D00D23FC9 /* MillionaireGame.xcdatamodeld in Sources */,
 				B7122EB5265088FB00D23FC9 /* ResultsVC.swift in Sources */,
+				B7122EC9265412C600D23FC9 /* Observable.swift in Sources */,
 				B7122EA8264DDDD100D23FC9 /* GameAnswersView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
