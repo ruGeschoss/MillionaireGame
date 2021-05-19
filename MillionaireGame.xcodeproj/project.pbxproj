@@ -32,6 +32,9 @@
 		B7122EC22653E48800D23FC9 /* QuestionOrderStratagy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122EC12653E48800D23FC9 /* QuestionOrderStratagy.swift */; };
 		B7122EC72654064400D23FC9 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122EC62654064400D23FC9 /* Settings.swift */; };
 		B7122EC9265412C600D23FC9 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122EC8265412C600D23FC9 /* Observable.swift */; };
+		B7122ECB2654787300D23FC9 /* AddQuestionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122ECA2654787300D23FC9 /* AddQuestionsVC.swift */; };
+		B7122ED126547F4000D23FC9 /* AddQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122ED026547F4000D23FC9 /* AddQuestionCell.swift */; };
+		B7122ED32654808300D23FC9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122ED22654808300D23FC9 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +67,9 @@
 		B7122EC12653E48800D23FC9 /* QuestionOrderStratagy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionOrderStratagy.swift; sourceTree = "<group>"; };
 		B7122EC62654064400D23FC9 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		B7122EC8265412C600D23FC9 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		B7122ECA2654787300D23FC9 /* AddQuestionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddQuestionsVC.swift; sourceTree = "<group>"; };
+		B7122ED026547F4000D23FC9 /* AddQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddQuestionCell.swift; sourceTree = "<group>"; };
+		B7122ED22654808300D23FC9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +150,7 @@
 		B7122E95264D8B8600D23FC9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B7122ECF26547F2F00D23FC9 /* AddQuestions */,
 				B7122EBD26532F1900D23FC9 /* Settings */,
 				B7122EAB264DE47E00D23FC9 /* Main */,
 				B7122EAC264DE48400D23FC9 /* Game */,
@@ -158,6 +165,7 @@
 				B7122E99264D8D1900D23FC9 /* GameVC.swift */,
 				B7122EB4265088FB00D23FC9 /* ResultsVC.swift */,
 				B7122EB9265317CA00D23FC9 /* SettingsVC.swift */,
+				B7122ECA2654787300D23FC9 /* AddQuestionsVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -204,6 +212,7 @@
 				B7122EB226507CFD00D23FC9 /* Caretaker.swift */,
 				B7122E75264C0C0D00D23FC9 /* MillionaireGame.xcdatamodeld */,
 				B7122EC8265412C600D23FC9 /* Observable.swift */,
+				B7122ED22654808300D23FC9 /* Extensions.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -223,6 +232,14 @@
 				B7122EC62654064400D23FC9 /* Settings.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		B7122ECF26547F2F00D23FC9 /* AddQuestions */ = {
+			isa = PBXGroup;
+			children = (
+				B7122ED026547F4000D23FC9 /* AddQuestionCell.swift */,
+			);
+			path = AddQuestions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -339,11 +356,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7122ECB2654787300D23FC9 /* AddQuestionsVC.swift in Sources */,
 				B7122EBA265317CA00D23FC9 /* SettingsVC.swift in Sources */,
 				B7122E6D264C0C0D00D23FC9 /* AppDelegate.swift in Sources */,
 				B7122E6F264C0C0D00D23FC9 /* SceneDelegate.swift in Sources */,
 				B7122EC22653E48800D23FC9 /* QuestionOrderStratagy.swift in Sources */,
 				B7122EB12650649300D23FC9 /* GameResult.swift in Sources */,
+				B7122ED126547F4000D23FC9 /* AddQuestionCell.swift in Sources */,
 				B7122EA0264D8F0200D23FC9 /* GameSession.swift in Sources */,
 				B7122EC02653E44400D23FC9 /* QuestionManager.swift in Sources */,
 				B7122EBC26532E8D00D23FC9 /* SettingsView.swift in Sources */,
@@ -356,6 +375,7 @@
 				B7122EC72654064400D23FC9 /* Settings.swift in Sources */,
 				B7122E9C264D8D5300D23FC9 /* Question.swift in Sources */,
 				B7122E9A264D8D1900D23FC9 /* GameVC.swift in Sources */,
+				B7122ED32654808300D23FC9 /* Extensions.swift in Sources */,
 				B7122E77264C0C0D00D23FC9 /* MillionaireGame.xcdatamodeld in Sources */,
 				B7122EB5265088FB00D23FC9 /* ResultsVC.swift in Sources */,
 				B7122EC9265412C600D23FC9 /* Observable.swift in Sources */,

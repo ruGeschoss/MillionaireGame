@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -51,9 +52,23 @@
                                 </constraints>
                                 <state key="normal">
                                     <imageReference key="image" image="gear" catalog="system" symbolScale="large"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="heavy"/>
                                 </state>
                                 <connections>
                                     <action selector="settingsTapped:" destination="8bC-Xf-vdC" eventType="touchUpInside" id="4sT-i4-hzZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UdJ-rO-jLl">
+                                <rect key="frame" x="20" y="44" width="116" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="fEU-TA-Naa"/>
+                                </constraints>
+                                <state key="normal" title="Add questions">
+                                    <color key="titleColor" name="AccentColor"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="heavy"/>
+                                </state>
+                                <connections>
+                                    <action selector="addQuestionsTapped:" destination="8bC-Xf-vdC" eventType="touchUpInside" id="9Cu-Yx-aKZ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -62,8 +77,11 @@
                         <constraints>
                             <constraint firstItem="XX5-b1-3Y0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Q1X-ak-lAA"/>
                             <constraint firstItem="jDO-TR-GjD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hFs-bG-1fy"/>
+                            <constraint firstItem="UdJ-rO-jLl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="lxf-MA-fSS"/>
+                            <constraint firstItem="XX5-b1-3Y0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UdJ-rO-jLl" secondAttribute="trailing" id="pdk-YK-08r"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="XX5-b1-3Y0" secondAttribute="trailing" constant="20" id="sqF-0i-5f6"/>
                             <constraint firstItem="jDO-TR-GjD" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="twd-Px-wDn"/>
+                            <constraint firstItem="UdJ-rO-jLl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="zIH-5e-FUP"/>
                         </constraints>
                         <connections>
                             <outlet property="lastResult" destination="aXH-cr-cC1" id="fQS-k8-bYN"/>
@@ -77,6 +95,31 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="928.98550724637687" y="88.392857142857139"/>
+        </scene>
+        <!--Add QuestionsVC-->
+        <scene sceneID="WF8-Dk-vY6">
+            <objects>
+                <viewController restorationIdentifier="AddQuestionsVC" storyboardIdentifier="AddQuestionsVC" id="Oed-SS-Znc" customClass="AddQuestionsVC" customModule="MillionaireGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KcM-SH-2Os">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ote-hx-Fwo">
+                                <rect key="frame" x="10" y="44" width="394" height="818"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="JDS-a5-lhN"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="addQuestionsTable" destination="Ote-hx-Fwo" id="ZLd-C8-lZv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dpk-bn-NAp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="929" y="783"/>
         </scene>
         <!--SettingsVC-->
         <scene sceneID="nRa-vS-hY8">
@@ -236,6 +279,9 @@
     </scenes>
     <resources>
         <image name="gear" catalog="system" width="128" height="119"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

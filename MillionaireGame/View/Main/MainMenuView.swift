@@ -26,6 +26,9 @@ final class MainMenuView: UIView {
     delegate?.navigate(.settings)
   }
   
+  @IBAction func addQuestionsTapped(_ sender: UIButton) {
+    delegate?.navigate(.addQuestions)
+  }
   @IBAction func startGameTapped(_ sender: UIButton) {
     delegate?.navigate(.newGame)
   }

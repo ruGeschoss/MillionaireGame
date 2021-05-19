@@ -8,7 +8,7 @@
 import UIKit
 
 enum NavigationPaths {
-  case results, newGame, settings
+  case results, newGame, settings, addQuestions
 }
 
 class MainMenuVC: UIViewController {
@@ -38,7 +38,7 @@ extension MainMenuVC: MainMenuDelegate {
     case .newGame:
       guard
         let gameVC = storyboard?
-          .instantiateViewController(identifier: "GameVC") as? GameVC
+          .instantiateViewController(identifier: GameVC.storyboardID) as? GameVC
       else { return }
       gameVC.onGameEnd = { [weak self] result in
         self?.previousGameResult = result
@@ -47,15 +47,21 @@ extension MainMenuVC: MainMenuDelegate {
     case .results:
       guard
         let resultsVC = storyboard?
-          .instantiateViewController(identifier: "ResultsVC") as? ResultsVC
+          .instantiateViewController(identifier: ResultsVC.storyboardID) as? ResultsVC
       else { return }
       destinationPath = resultsVC
     case .settings:
       guard
         let settingsVC = storyboard?
-          .instantiateViewController(identifier: "SettingsVC") as? SettingsVC
+          .instantiateViewController(identifier: SettingsVC.storyboardID) as? SettingsVC
       else { return }
       destinationPath = settingsVC
+    case .addQuestions:
+      guard
+        let addQuestionsVC = storyboard?
+          .instantiateViewController(identifier: AddQuestionsVC.storyboardID) as? AddQuestionsVC
+      else { return }
+      destinationPath = addQuestionsVC
     }
     
     navigationController?.pushViewController(destinationPath!, animated: true)
