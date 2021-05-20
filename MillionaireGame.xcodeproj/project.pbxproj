@@ -34,7 +34,10 @@
 		B7122EC9265412C600D23FC9 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122EC8265412C600D23FC9 /* Observable.swift */; };
 		B7122ECB2654787300D23FC9 /* AddQuestionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122ECA2654787300D23FC9 /* AddQuestionsVC.swift */; };
 		B7122ED126547F4000D23FC9 /* AddQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122ED026547F4000D23FC9 /* AddQuestionCell.swift */; };
-		B7122ED32654808300D23FC9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122ED22654808300D23FC9 /* Extensions.swift */; };
+		B7122ED72655CFE200D23FC9 /* QuestionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122ED62655CFE200D23FC9 /* QuestionBuilder.swift */; };
+		B7122EDA265708D000D23FC9 /* +String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122ED9265708D000D23FC9 /* +String.swift */; };
+		B7122EDC265708EB00D23FC9 /* +ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122EDB265708EB00D23FC9 /* +ViewController.swift */; };
+		B7122EDE2657090C00D23FC9 /* +TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7122EDD2657090C00D23FC9 /* +TableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,7 +72,10 @@
 		B7122EC8265412C600D23FC9 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		B7122ECA2654787300D23FC9 /* AddQuestionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddQuestionsVC.swift; sourceTree = "<group>"; };
 		B7122ED026547F4000D23FC9 /* AddQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddQuestionCell.swift; sourceTree = "<group>"; };
-		B7122ED22654808300D23FC9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B7122ED62655CFE200D23FC9 /* QuestionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionBuilder.swift; sourceTree = "<group>"; };
+		B7122ED9265708D000D23FC9 /* +String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+String.swift"; sourceTree = "<group>"; };
+		B7122EDB265708EB00D23FC9 /* +ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+ViewController.swift"; sourceTree = "<group>"; };
+		B7122EDD2657090C00D23FC9 /* +TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+TableViewCell.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,10 +215,11 @@
 		B7122EC32653E53100D23FC9 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				B7122ED8265708BD00D23FC9 /* Extensions */,
 				B7122EB226507CFD00D23FC9 /* Caretaker.swift */,
 				B7122E75264C0C0D00D23FC9 /* MillionaireGame.xcdatamodeld */,
 				B7122EC8265412C600D23FC9 /* Observable.swift */,
-				B7122ED22654808300D23FC9 /* Extensions.swift */,
+				B7122ED62655CFE200D23FC9 /* QuestionBuilder.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -240,6 +247,16 @@
 				B7122ED026547F4000D23FC9 /* AddQuestionCell.swift */,
 			);
 			path = AddQuestions;
+			sourceTree = "<group>";
+		};
+		B7122ED8265708BD00D23FC9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B7122ED9265708D000D23FC9 /* +String.swift */,
+				B7122EDB265708EB00D23FC9 /* +ViewController.swift */,
+				B7122EDD2657090C00D23FC9 /* +TableViewCell.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -375,11 +392,14 @@
 				B7122EC72654064400D23FC9 /* Settings.swift in Sources */,
 				B7122E9C264D8D5300D23FC9 /* Question.swift in Sources */,
 				B7122E9A264D8D1900D23FC9 /* GameVC.swift in Sources */,
-				B7122ED32654808300D23FC9 /* Extensions.swift in Sources */,
+				B7122EDC265708EB00D23FC9 /* +ViewController.swift in Sources */,
+				B7122EDA265708D000D23FC9 /* +String.swift in Sources */,
+				B7122EDE2657090C00D23FC9 /* +TableViewCell.swift in Sources */,
 				B7122E77264C0C0D00D23FC9 /* MillionaireGame.xcdatamodeld in Sources */,
 				B7122EB5265088FB00D23FC9 /* ResultsVC.swift in Sources */,
 				B7122EC9265412C600D23FC9 /* Observable.swift in Sources */,
 				B7122EA8264DDDD100D23FC9 /* GameAnswersView.swift in Sources */,
+				B7122ED72655CFE200D23FC9 /* QuestionBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

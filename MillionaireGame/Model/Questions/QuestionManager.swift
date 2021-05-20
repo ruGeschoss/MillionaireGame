@@ -9,26 +9,58 @@ import Foundation
 
 final class QuestionManager {
   
-  private var questions: [Question] = []
+  private var questions: [Question] {
+    get { questionCaretaker.retrieveResults() }
+    set { questionCaretaker.save(newValue) }
+  }
+  private var questionsWithSettings: [Question] = []
+  private let questionCaretaker = Caretaker<Question>()
   private var orderStrategy: QuestionOrderStratagy?
   
   init() {
-    questions = loadQuestions()
+    if questions.count == 0 {
+      questions = loadQuestions()
+    }
   }
   
   func setupQuestions(settings: Settings) {
     orderStrategy = settings.shouldShuffleQuestions ?
       ShuffledQuestionsOrder() : StraightQuestionsOrder()
     
-    questions = orderStrategy!.reorderQuestions(questions: questions)
+    questionsWithSettings = settings.useCreatedQuestions ?
+      questions : questions.filter { !$0.userCreated }
+    
+    questionsWithSettings = orderStrategy!
+      .reorderQuestions(questions: questionsWithSettings)
   }
   
+}
+
+extension QuestionManager {
+  
   func questionForRound(round: Int) -> Question {
-    questions[round]
+    questionsWithSettings[round]
   }
   
   func questionsCount() -> Int {
-    questions.count
+    questionsWithSettings.count
+  }
+  
+}
+
+extension QuestionManager {
+  
+  func getCreatedQuestions() -> [Question] {
+    questions.filter { $0.userCreated }
+  }
+  
+  func saveCreatedQuestions(questions: [Question]) {
+    self.questions.append(contentsOf: questions)
+  }
+  
+  func deleteCreatedQuestion(questionToDelete: Question) {
+    let newArray = questions.filter { $0 != questionToDelete }
+    questions = newArray
   }
   
 }

@@ -21,7 +21,9 @@ final class QuestionBuilder {
   }
   
   func answers(_ answers: String, key: Int) {
-    self.answers[key] = answers.split(separator: ",").map { String($0).capitalized }
+    self.answers[key] = answers
+      .split(separator: ",")
+      .map { String($0).capitalizingFirstLetter() }
   }
   
   func build() -> [Question] {
@@ -30,12 +32,14 @@ final class QuestionBuilder {
       guard
         let question = questions[key],
         let correctAnswer = correctAnswer[key],
-        let answers = answers[key]
+        var answers = answers[key]
       else { return nil }
-      
+      let randomIndex = Int.random(in: 0...3)
+      answers.insert(correctAnswer, at: randomIndex)
       return Question(question: question,
                       answers: answers,
-                      correctAnswer: correctAnswer)
+                      correctAnswer: correctAnswer,
+                      userCreated: true)
     }
     return userQuestions.compactMap { $0 }
   }

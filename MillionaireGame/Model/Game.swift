@@ -13,30 +13,30 @@ final class Game {
   private init() {}
   
   var currentGame: GameSession?
-  private let settingsCaretaker = Caretaker<Settings>()
-  private let caretaker = Caretaker<GameResult>()
   private let questionManager = QuestionManager()
+  private let settingsCaretaker = Caretaker<Settings>()
+  private let resultCaretaker = Caretaker<GameResult>()
   
   var settings: Settings {
     get { settingsCaretaker.retrieveResults().first ?? Settings() }
-    set { settingsCaretaker.save(results: [newValue]) }
+    set { settingsCaretaker.save([newValue]) }
   }
   
   private var results: [GameResult] {
-    get { caretaker.retrieveResults() }
-    set { caretaker.save(results: newValue) }
+    get { resultCaretaker.retrieveResults() }
+    set { resultCaretaker.save(newValue) }
   }
   
 }
 
 extension Game {
   
-  enum SortType {
+  enum ResultsSortType {
     case date, percent, timeSpent
   }
   
   // TODO: Enable sorting in ResultsVC
-  func getAllResults(_ sorted: SortType?) -> [GameResult] {
+  func getAllResults(_ sorted: ResultsSortType?) -> [GameResult] {
     switch sorted {
     case .date:
       return results.sorted(by: { $0.dateFinished > $1.dateFinished })
@@ -47,6 +47,22 @@ extension Game {
     case .none:
       return results
     }
+  }
+  
+}
+
+extension Game {
+  
+  func getCreatedQuestions() -> [Question] {
+    questionManager.getCreatedQuestions()
+  }
+  
+  func saveCreatedQuestions(questions: [Question]) {
+    questionManager.saveCreatedQuestions(questions: questions)
+  }
+  
+  func deleteCreatedQuestion(question: Question) {
+    questionManager.deleteCreatedQuestion(questionToDelete: question)
   }
   
 }

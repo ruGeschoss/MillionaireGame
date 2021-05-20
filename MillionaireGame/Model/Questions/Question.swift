@@ -7,11 +7,30 @@
 
 import Foundation
 
-struct Question {
+struct Question: Codable, Equatable {
   
   let question: String
   let answers: [String]
   let correctAnswer: String
+  var userCreated: Bool = false
+  
+  var singleStringAnswers: String {
+      answers
+        .filter { $0 != correctAnswer }
+        .map { $0 != answers.last ? $0 + "," : $0 }
+        .reduce("", +)
+  }
+  
+}
+
+extension Question {
+  
+  init() {
+    question = ""
+    answers = []
+    correctAnswer = ""
+    userCreated = true
+  }
   
 }
 

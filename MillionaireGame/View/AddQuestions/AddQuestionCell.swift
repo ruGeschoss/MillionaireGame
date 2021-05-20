@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol QuestionCellDelegate: AnyObject {
+  func didSetQuestion(key: Int, question: String)
+  func didSetCorrectAnswer(key: Int, answer: String)
+  func didSetAnswers(key: Int, answers: String)
+}
+
 private enum Constants: String {
   case question = "Вопрос"
   case correctAnswer = "Правильный ответ"
@@ -33,6 +39,8 @@ final class AddQuestionCell: UITableViewCell {
   private lazy var correctAnswerTextField = createTextField(text: .correctAnswer)
   private lazy var answersTextField = createTextField(text: .answers)
   
+  weak var delegate: QuestionCellDelegate?
+  
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     setupCell()
@@ -45,11 +53,58 @@ final class AddQuestionCell: UITableViewCell {
     setupCell()
     addAllSubviews()
     setConstraints()
+    setupLayer()
+  }
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    setupLayer()
+  }
+  
+  func configureFields(userQuestion: Question) {
+    questionTextField.text = userQuestion.question
+    correctAnswerTextField.text = userQuestion.correctAnswer
+    answersTextField.text = userQuestion.singleStringAnswers
+  }
+  
+  func cacheTextFields() -> Question {
+    let question = questionTextField.text
+    let correctAnswer = correctAnswerTextField.text
+    let answers = answersTextField.text?.split(separator: ",").map { String($0) }
+    
+    return Question(question: question ?? "",
+                    answers: answers ?? [],
+                    correctAnswer: correctAnswer ?? "",
+                    userCreated: true)
+  }
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    questionTextField.text = ""
+    correctAnswerTextField.text = ""
+    answersTextField.text = ""
+  }
+  
+}
+
+// MARK: - Setup
+extension AddQuestionCell {
+  
+  private func addAllSubviews() {
+    addSubview(questionLabel)
+    addSubview(questionTextField)
+    addSubview(correctAnswerLabel)
+    addSubview(correctAnswerTextField)
+    addSubview(answersLabel)
+    addSubview(answersTextField)
   }
   
   private func setupCell() {
     selectionStyle = .none
     backgroundColor = Constants.cellBackgroundColor
+  }
+  
+  private func setupLayer() {
     layer.cornerRadius = Constants.cellCornerRadius
     layer.borderWidth = Constants.cellBorderWidth
     layer.borderColor = Constants.cellBorderColor
@@ -69,11 +124,14 @@ extension AddQuestionCell: UITextFieldDelegate {
     switch textField {
     case questionTextField:
       isAcceptable = text.count > 10 && text.last == "?"
+      isAcceptable ? delegate?.didSetQuestion(key: hashValue, question: text) : ()
     case correctAnswerTextField:
       isAcceptable = text.count > 1
+      isAcceptable ? delegate?.didSetCorrectAnswer(key: hashValue, answer: text) : ()
     case answersTextField:
       let answersArray = text.split(separator: ",")
       isAcceptable = answersArray.count == 3
+      isAcceptable ? delegate?.didSetAnswers(key: hashValue, answers: text) : ()
     default:
       return
     }
@@ -84,15 +142,6 @@ extension AddQuestionCell: UITextFieldDelegate {
 
 // MARK: Create subviews
 extension AddQuestionCell {
-  
-  private func addAllSubviews() {
-    addSubview(questionLabel)
-    addSubview(questionTextField)
-    addSubview(correctAnswerLabel)
-    addSubview(correctAnswerTextField)
-    addSubview(answersLabel)
-    addSubview(answersTextField)
-  }
   
   private func createTextField(text: Constants) -> UITextField {
     let textField = UITextField()

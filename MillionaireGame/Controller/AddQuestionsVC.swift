@@ -46,25 +46,57 @@ final class AddQuestionsVC: UIViewController {
     button.addTarget(self, action: #selector(addCellTapped), for: .touchUpInside)
     return button
   }()
-  
-  private var testArray: [String] = [""]
+  private lazy var builder = QuestionBuilder()
+  private let game = Game.shared
+  private var userQuestions: [Question] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
     addAllSubviews()
     setupTable()
     setConstraints()
+    addGestureRecogniser()
+    
+    userQuestions = game.getCreatedQuestions()
+    userQuestions.isEmpty ? addEmptyCell() : ()
+  }
+  
+  private func addEmptyCell() {
+    userQuestions.insert(Question(), at: .zero)
+    addQuestionsTable.insertSections([.zero], with: .automatic)
   }
   
   @objc private func saveButtonTapped() {
     addQuestionsTable.endEditing(true)
-    print(#function)
+    let userQuestions = builder.build()
+    game.saveCreatedQuestions(questions: userQuestions)
+    navigationController?.popViewController(animated: true)
   }
   
   @objc private func addCellTapped() {
     addQuestionsTable.endEditing(true)
-    testArray.insert("1", at: 0)
-    addQuestionsTable.insertSections(.init(integer: 0), with: .automatic)
+    addEmptyCell()
+  }
+  
+  @objc func returnToMainMenu() {
+    navigationController?.popViewController(animated: true)
+  }
+  
+}
+
+// MARK: - Cell Delegate
+extension AddQuestionsVC: QuestionCellDelegate {
+  
+  func didSetQuestion(key: Int, question: String) {
+    builder.question(question, key: key)
+  }
+  
+  func didSetCorrectAnswer(key: Int, answer: String) {
+    builder.correctAnswer(answer, key: key)
+  }
+  
+  func didSetAnswers(key: Int, answers: String) {
+    builder.answers(answers, key: key)
   }
   
 }
@@ -78,7 +110,7 @@ extension AddQuestionsVC: UITableViewDataSource {
   }
   
   func numberOfSections(in tableView: UITableView) -> Int {
-    testArray.count
+    userQuestions.count
   }
   
   func tableView(_ tableView: UITableView,
@@ -87,7 +119,31 @@ extension AddQuestionsVC: UITableViewDataSource {
       let cell = addQuestionsTable
         .dequeueReusableCell(withIdentifier: AddQuestionCell.reuseID) as? AddQuestionCell
     else { return UITableViewCell() }
+    
+    let question = userQuestions[indexPath.section]
+    cell.delegate = self
+    cell.configureFields(userQuestion: question)
+    
     return cell
+  }
+  
+  func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    guard
+      let cell = cell as? AddQuestionCell,
+      userQuestions.count > indexPath.section
+    else { return }
+    userQuestions[indexPath.section] = cell.cacheTextFields()
+  }
+  
+  func tableView(_ tableView: UITableView,
+                 commit editingStyle: UITableViewCell.EditingStyle,
+                 forRowAt indexPath: IndexPath) {
+    if editingStyle == .delete {
+      let questionToDelete = userQuestions[indexPath.section]
+      userQuestions.remove(at: indexPath.section)
+      game.deleteCreatedQuestion(question: questionToDelete)
+      addQuestionsTable.deleteSections([indexPath.section], with: .fade)
+    }
   }
   
 }
@@ -111,7 +167,6 @@ extension AddQuestionsVC: UITableViewDelegate {
       let buttonsMinY = saveButton.frame.minY
       return tableMaxY - buttonsMinY + Constants.separatorHeight
     }
-    
   }
   
 }
@@ -130,6 +185,13 @@ extension AddQuestionsVC: UITableViewDelegate {
       addQuestionsTable.delegate = self
       addQuestionsTable.separatorStyle = .none
       addQuestionsTable.register(AddQuestionCell.self, forCellReuseIdentifier: AddQuestionCell.reuseID)
+    }
+    
+    private func addGestureRecogniser() {
+      let swiper = UIScreenEdgePanGestureRecognizer()
+      swiper.edges = .left
+      swiper.addTarget(self, action: #selector(returnToMainMenu))
+      view.addGestureRecognizer(swiper)
     }
     
   }
