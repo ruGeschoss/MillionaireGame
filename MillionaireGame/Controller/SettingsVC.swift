@@ -15,6 +15,7 @@ class SettingsVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     settingsView.delegate = self
+    settingsView.reload()
     
     let swiper = UIScreenEdgePanGestureRecognizer()
     swiper.edges = .left
@@ -30,8 +31,14 @@ class SettingsVC: UIViewController {
 
 extension SettingsVC: SettingsViewDelegate {
   
-  func settingsDidChange(newSettings: Settings) {
+  func settingsDidChange(newSettings: Settings?) {
+    guard let newSettings = newSettings else { return }
     Game.shared.settings = newSettings
+    settingsView.reload()
+  }
+  
+  func getSavedSetting() -> Settings {
+    Game.shared.settings
   }
   
 }

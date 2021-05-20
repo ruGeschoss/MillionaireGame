@@ -13,9 +13,14 @@ final class Game {
   private init() {}
   
   var currentGame: GameSession?
-  var settings = Settings()
+  private let settingsCaretaker = Caretaker<Settings>()
   private let caretaker = Caretaker<GameResult>()
   private let questionManager = QuestionManager()
+  
+  var settings: Settings {
+    get { settingsCaretaker.retrieveResults().first ?? Settings() }
+    set { settingsCaretaker.save(results: [newValue]) }
+  }
   
   private var results: [GameResult] {
     get { caretaker.retrieveResults() }

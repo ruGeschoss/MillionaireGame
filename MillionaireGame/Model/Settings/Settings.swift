@@ -7,15 +7,18 @@
 
 import Foundation
 
-struct Settings {
+struct Settings: Codable {
   var shouldShuffleQuestions: Bool
+  var useCreatedQuestions: Bool
   
-  init(shuffle: Bool) {
+  init(shuffle: Bool, useCreatedQuestions: Bool) {
     self.shouldShuffleQuestions = shuffle
+    self.useCreatedQuestions = useCreatedQuestions
   }
   
   init() {
     self.shouldShuffleQuestions = false
+    self.useCreatedQuestions = true
   }
 }
 

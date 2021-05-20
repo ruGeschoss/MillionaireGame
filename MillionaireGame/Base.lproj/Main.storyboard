@@ -144,19 +144,41 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9bb-Wv-ycN">
+                                <rect key="frame" x="10" y="149" width="345" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="9Mz-4Z-LGd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vce-DX-0dh">
+                                <rect key="frame" x="355" y="158.5" width="51" height="31"/>
+                                <connections>
+                                    <action selector="secondSettingSwitchMoved:" destination="7xc-Y6-hon" eventType="valueChanged" id="1Pz-3D-w6S"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ikG-aS-uI3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="vce-DX-0dh" firstAttribute="centerY" secondItem="9bb-Wv-ycN" secondAttribute="centerY" id="A4M-ZN-hdx"/>
                             <constraint firstItem="QSK-9l-xYu" firstAttribute="leading" secondItem="d0f-ZH-UGq" secondAttribute="trailing" id="Fs2-hr-nBg"/>
+                            <constraint firstItem="9bb-Wv-ycN" firstAttribute="top" secondItem="d0f-ZH-UGq" secondAttribute="bottom" constant="5" id="PiH-Ve-heu"/>
                             <constraint firstItem="ikG-aS-uI3" firstAttribute="trailing" secondItem="QSK-9l-xYu" secondAttribute="trailing" constant="10" id="Xp6-jp-Xxn"/>
                             <constraint firstItem="QSK-9l-xYu" firstAttribute="centerY" secondItem="d0f-ZH-UGq" secondAttribute="centerY" id="m0C-qd-XHd"/>
+                            <constraint firstItem="ikG-aS-uI3" firstAttribute="trailing" secondItem="vce-DX-0dh" secondAttribute="trailing" constant="10" id="qJQ-oC-0Rx"/>
+                            <constraint firstItem="9bb-Wv-ycN" firstAttribute="leading" secondItem="ikG-aS-uI3" secondAttribute="leading" constant="10" id="reM-Da-RnY"/>
                             <constraint firstItem="d0f-ZH-UGq" firstAttribute="leading" secondItem="ikG-aS-uI3" secondAttribute="leading" constant="10" id="unX-0A-5pG"/>
+                            <constraint firstItem="vce-DX-0dh" firstAttribute="leading" secondItem="9bb-Wv-ycN" secondAttribute="trailing" id="xgb-Q2-ayg"/>
                             <constraint firstItem="d0f-ZH-UGq" firstAttribute="top" secondItem="ikG-aS-uI3" secondAttribute="top" constant="50" id="zn7-Cr-iK2"/>
                         </constraints>
                         <connections>
                             <outlet property="firstSettingLabel" destination="d0f-ZH-UGq" id="w6Z-8V-j4H"/>
                             <outlet property="firstSettingSwitch" destination="QSK-9l-xYu" id="E0S-gR-x37"/>
+                            <outlet property="secondSettingLabel" destination="9bb-Wv-ycN" id="eD6-1q-qqI"/>
+                            <outlet property="secondSettingSwitch" destination="vce-DX-0dh" id="WZV-u7-7WA"/>
                         </connections>
                     </view>
                     <connections>
