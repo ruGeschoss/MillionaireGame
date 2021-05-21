@@ -12,7 +12,7 @@ final class GameSession {
   private(set) var isFiftyPromptEnabled: Bool
   private(set) var isCallFriendPromptEnabled: Bool
   private(set) var isHallHelpPromptEnabled: Bool
-  private(set) var correctAnswers: Int
+  private(set) var correctAnswers: Observable<Int>
   private(set) var dateStarted: Date
   
   init(dateStarted: Date) {
@@ -20,7 +20,7 @@ final class GameSession {
     isFiftyPromptEnabled = true
     isCallFriendPromptEnabled = true
     isHallHelpPromptEnabled = true
-    correctAnswers = .zero
+    correctAnswers = .init(.zero)
   }
   
 }
@@ -39,11 +39,11 @@ extension GameSession: CurrentGameSession {
   }
   
   func correctAnswer() {
-    correctAnswers += 1
+    correctAnswers.value += 1
   }
   
   func getNumberOfCurrentRound() -> Int {
-    correctAnswers
+    correctAnswers.value
   }
   
 }

@@ -16,9 +16,10 @@ final class Caretaker<Object: Codable> {
     String(describing: Object.self)
   }()
   
-  func save(results: [Object]) {
+  func save(_ object: [Object]) {
     do {
-      let data = try self.encoder.encode(results)
+      let data = try self.encoder.encode(object)
+      // TODO: Save to CoreDate instead
       UserDefaults.standard.set(data, forKey: key)
     } catch {
       print(error)
